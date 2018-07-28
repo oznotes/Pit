@@ -25,7 +25,7 @@ if __name__ == '__main__':
 
     pit = get_pit()
     if not pit:
-        print "There is no .pit file in the directory"
+        print "There is no '.pit' file in the directory"
     else:
         f = open(pit, "rb")
         file_contents = f.read()
