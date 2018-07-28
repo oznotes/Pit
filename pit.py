@@ -1,33 +1,34 @@
 #!/usr/bin/env python
 import binascii
-import sys
 import os
-import re
 
 __author__ = "Oz"
 __copyright__ = "SAMSUNG Pit Parser"
 
 header = "769834121f000000434f4d5f54415232"  # v 4.....COM_TAR2
 
+
 def get_pit():
     """
-    find the pit file and return the file name .
+    find the pit file
     :return: pit file name
     """
     cwd = os.getcwd()
     for root, dirs, files in os.walk(cwd, topdown=True):
         del dirs[:]  # remove the sub directories.
-        for file in files:
-            if file.endswith(".pit"):
-                return os.path.join(file)
+        for pf in files:
+            if pf.endswith(".pit"):
+                return os.path.join(pf)
+
 
 def fix_hex(mihex):
-    x = len(mihex)
-    if x % 2 == 0:
+    sx = len(mihex)
+    if sx % 2 == 0:
         return mihex
     else:
         mihex = mihex + "0"
         return mihex
+
 
 if __name__ == '__main__':
 
