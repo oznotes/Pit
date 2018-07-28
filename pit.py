@@ -21,6 +21,13 @@ def get_pit():
             if file.endswith(".pit"):
                 return os.path.join(file)
 
+def fix_hex(mihex):
+    x = len(mihex)
+    if x % 2 == 0:
+        return mihex
+    else:
+        mihex = mihex + "0"
+        return mihex
 
 if __name__ == '__main__':
 
@@ -37,12 +44,12 @@ if __name__ == '__main__':
             print "CHIPSET : " + hex_file[32:64].decode("hex").strip("00")
             x = len(hex_file)
             while i < x:
-                partition = hex_file[i:i+32].strip("00").decode("hex")
+                partition = hex_file[i:i+32].strip("00")
+                partition = fix_hex(partition).decode("hex")
                 partition_file = hex_file[i+64:i+96].strip("00").decode("hex")
-                #if partition.isalpha()is True:
-                print partition + " : " + partition_file
-
-           # if bool(re.match('^[a-zA-Z0-9]+$', partition)):
-           #         print partition + " : " + partition_file
-
+                if partition.isalnum():
+                    print partition + " : " + partition_file
+                else:
+                    print "END"
+                    break
                 i = i + 264
