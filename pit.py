@@ -41,14 +41,14 @@ if __name__ == '__main__':
         f.close()
         hex_file = bytearray(binascii.hexlify(file_contents))
         if header in hex_file:
-            print "CHIPSET : " + hex_file[32:64].decode("hex").strip("00")
+            print "CHIP SET".ljust(12) + " : " + hex_file[32:64].decode("hex").strip("00")
             x = len(hex_file)
             while i < x:
                 partition = hex_file[i:i+32].strip("00")
                 partition = fix_hex(partition).decode("hex")
                 partition_file = hex_file[i+64:i+96].strip("00").decode("hex")
                 if partition.isalnum():
-                    print partition + " : " + partition_file
+                    print partition.ljust(12) + " : " + partition_file
                 else:
                     print "END"
                     break
