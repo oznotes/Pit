@@ -2,6 +2,7 @@
 import binascii
 import sys
 import os
+import re
 
 __author__ = "Oz"
 __copyright__ = "SAMSUNG Pit Parser"
@@ -24,6 +25,7 @@ def get_pit():
 if __name__ == '__main__':
 
     pit = get_pit()
+    i = 128
     if not pit:
         print "There is no .pit file in the directory"
     else:
@@ -32,7 +34,19 @@ if __name__ == '__main__':
         f.close()
         hex_file = bytearray(binascii.hexlify(file_contents))
         if header in hex_file:
-            print "Pit Header"
+            print "CHIPSET : " + hex_file[32:64].decode("hex").strip("00")
+            x = len(hex_file)
+            while i < x:
+                partition = hex_file[i:i+32].decode("hex").strip("00")
+                partition_file = hex_file[i+64:i+96].decode("hex").strip("00")
+                print partition + " : " + partition_file
+
+           # if bool(re.match('^[a-zA-Z0-9]+$', partition)):
+           #         print partition + " : " + partition_file
+
+                i = i + 264
+
+
 
 
 
