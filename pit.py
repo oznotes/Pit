@@ -37,16 +37,12 @@ if __name__ == '__main__':
             print "CHIPSET : " + hex_file[32:64].decode("hex").strip("00")
             x = len(hex_file)
             while i < x:
-                partition = hex_file[i:i+32].decode("hex").strip("00")
-                partition_file = hex_file[i+64:i+96].decode("hex").strip("00")
+                partition = hex_file[i:i+32].strip("00").decode("hex")
+                partition_file = hex_file[i+64:i+96].strip("00").decode("hex")
+                #if partition.isalpha()is True:
                 print partition + " : " + partition_file
 
            # if bool(re.match('^[a-zA-Z0-9]+$', partition)):
            #         print partition + " : " + partition_file
 
                 i = i + 264
-
-
-
-
-
