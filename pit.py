@@ -33,7 +33,7 @@ def fix_hex(mihex):
 def little_endian(deadbeef):  # ef be ad de
     temp = []
     deadbeef = list(deadbeef)
-    for i in range(len(deadbeef)):
+    for ix in range(len(deadbeef)):
         temp.append(deadbeef[-2:])
         deadbeef.pop(-1)
         deadbeef.pop(-1)
@@ -59,8 +59,8 @@ if __name__ == '__main__':
             x = len(hex_file)
             while i < x:
                 partition = hex_file[i:i+32].strip("00")
-                #print partition  # debug purpose
-                partition = partition.replace("00","") # get rid of this .
+                #  print partition  # debug purpose
+                partition = partition.replace("00", "")  # get rid of this .
                 partition = fix_hex(partition).decode("hex")
                 partition_file = hex_file[i+64:i+96].strip("00").decode("hex")
                 addr = hex_file[i-32:i-24]
@@ -70,11 +70,13 @@ if __name__ == '__main__':
                 hex_size = little_endian(str(size))
                 size = hex(int(hex_size, 16) * 512)
                 if partition.isalnum():
-                    print partition.ljust(12) + " : "  \
-                          + partition_file.ljust(20) + "  " \
-                          + addr.strip("L").ljust(12) + " " \
-                          + size.strip("L").ljust(12)
+                    print (
+                                partition.ljust(12) + " : " +
+                                partition_file.ljust(20) + " " +
+                                addr.strip("L").ljust(12) + " " +
+                                size.strip("L").ljust(12)
+                    )
                 else:
                     print "END"
                     break
-                i = i + 264 # 84 bytes each block
+                i = i + 264  # 84 bytes each block
