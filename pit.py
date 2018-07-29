@@ -74,4 +74,4 @@ if __name__ == '__main__':
                 else:
                     print "END"
                     break
-                i = i + 264
+                i = i + 264 # 84 bytes each block
