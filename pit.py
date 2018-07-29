@@ -8,16 +8,16 @@ __copyright__ = "SAMSUNG Pit Parser"
 header = "76983412"  # v 4.
 
 
-def get_pit():
+def get_file(file_type):
     """
-    find the pit file
-    :return: pit file name
+    find the file with the given extension and return the file name
+    :return: file name
     """
     cwd = os.getcwd()
     for root, dirs, files in os.walk(cwd, topdown=True):
         del dirs[:]  # remove the sub directories.
         for pf in files:
-            if pf.endswith(".pit"):
+            if pf.endswith(file_type):
                 return os.path.join(pf)
 
 
@@ -45,7 +45,7 @@ def little_endian(deadbeef):  # ef be ad de
 
 if __name__ == '__main__':
 
-    pit = get_pit()
+    pit = get_file(".pit")
     i = 128
     if not pit:
         print "There is no '.pit' file in the directory"
@@ -55,7 +55,7 @@ if __name__ == '__main__':
         f.close()
         hex_file = bytearray(binascii.hexlify(file_contents))
         if header in hex_file:
-            print "CHIP SET".ljust(12) + " : " + hex_file[32:64].decode("hex").strip("00")
+            print "Platform".ljust(12) + " : " + hex_file[32:64].decode("hex").strip("00")
             x = len(hex_file)
             while i < x:
                 partition = hex_file[i:i+32].strip("00")
