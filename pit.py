@@ -30,6 +30,19 @@ def fix_hex(mihex):
         return mihex
 
 
+def little_endian(deadbeef):  # ef be ad de
+    temp = []
+    deadbeef = list(deadbeef)
+    for i in range(len(deadbeef)):
+        temp.append(deadbeef[-2:])
+        deadbeef.pop(-1)
+        deadbeef.pop(-1)
+        if not deadbeef:
+            break
+    temp = str(temp).replace("'", "").replace(",", "").replace("[", "").replace("]", "").replace(" ", "")
+    return temp
+
+
 if __name__ == '__main__':
 
     pit = get_pit()
@@ -48,8 +61,14 @@ if __name__ == '__main__':
                 partition = hex_file[i:i+32].strip("00")
                 partition = fix_hex(partition).decode("hex")
                 partition_file = hex_file[i+64:i+96].strip("00").decode("hex")
+                addr = hex_file[i-32:i-24]
+                hex_addr = little_endian(str(addr))
+                addr = hex(int(hex_addr, 16) * 512)
+                size = hex_file[i-24:i-16]
+                hex_size = little_endian(str(size))
+                size = hex(int(hex_size, 16) * 512)
                 if partition.isalnum():
-                    print partition.ljust(12) + " : " + partition_file
+                    print partition.ljust(12) + " : "  + partition_file.ljust(20) + "  " + addr.ljust(12) + " " + size
                 else:
                     print "END"
                     break
