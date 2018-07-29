@@ -70,7 +70,10 @@ if __name__ == '__main__':
                 hex_size = little_endian(str(size))
                 size = hex(int(hex_size, 16) * 512)
                 if partition.isalnum():
-                    print partition.ljust(12) + " : "  + partition_file.ljust(20) + "  " + addr.ljust(12) + " " + size
+                    print partition.ljust(12) + " : "  \
+                          + partition_file.ljust(20) + "  " \
+                          + addr.strip("L").ljust(12) + " " \
+                          + size.strip("L").ljust(12)
                 else:
                     print "END"
                     break
