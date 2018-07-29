@@ -5,7 +5,7 @@ import os
 __author__ = "Oz"
 __copyright__ = "SAMSUNG Pit Parser"
 
-header = "769834121f000000434f4d5f54415232"  # v 4.....COM_TAR2
+header = "76983412"  # v 4.
 
 
 def get_pit():
@@ -59,6 +59,7 @@ if __name__ == '__main__':
             x = len(hex_file)
             while i < x:
                 partition = hex_file[i:i+32].strip("00")
+                #print partition  # debug purpose
                 partition = fix_hex(partition).decode("hex")
                 partition_file = hex_file[i+64:i+96].strip("00").decode("hex")
                 addr = hex_file[i-32:i-24]
