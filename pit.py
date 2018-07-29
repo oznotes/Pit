@@ -60,6 +60,7 @@ if __name__ == '__main__':
             while i < x:
                 partition = hex_file[i:i+32].strip("00")
                 #print partition  # debug purpose
+                partition = partition.replace("00","") # get rid of this .
                 partition = fix_hex(partition).decode("hex")
                 partition_file = hex_file[i+64:i+96].strip("00").decode("hex")
                 addr = hex_file[i-32:i-24]
