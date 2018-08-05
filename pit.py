@@ -76,6 +76,8 @@ if __name__ == '__main__':
                                 addr.strip("L").ljust(12) + " " +
                                 size.strip("L").ljust(12)
                     )
+                    if partition_file != "":
+                        pass # implement tar
                 else:
                     print "END"
                     break
