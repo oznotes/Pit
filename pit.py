@@ -1,18 +1,12 @@
 #!/usr/bin/env python
 import binascii
 import os
-<<<<<<< HEAD
-<<<<<<< HEAD
 import tarfile
 import sys
 import disk
 import time
 
 # TODO : implement from __future__ import print_function
-=======
->>>>>>> parent of 6929422... tarfile extraction added.
-=======
->>>>>>> parent of 6929422... tarfile extraction added.
 
 __author__ = "Oz"
 __copyright__ = "SAMSUNG Pit Parser"
@@ -56,8 +50,7 @@ def little_endian(deadbeef):  # ef be ad de
 
 
 if __name__ == '__main__':
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     d = disk
     reader  = d.detect_disk()
     # if reader[0] == True:
@@ -67,12 +60,7 @@ if __name__ == '__main__':
         print "There is no .tar.md5 file in the directory"
         sys.exit(0)
     tar = tarfile.open(tar_file)  # TODO : i need to find .
-=======
 
->>>>>>> parent of 6929422... tarfile extraction added.
-=======
-
->>>>>>> parent of 6929422... tarfile extraction added.
     pit = get_file(".pit")
     i = 128
     if not pit:
@@ -99,8 +87,6 @@ if __name__ == '__main__':
                 hex_size = little_endian(str(size))
                 size = hex(int(hex_size, 16) * 512)
                 if partition.isalnum():
-<<<<<<< HEAD
-<<<<<<< HEAD
                     if partition_file != "":
                         try:
                             time.sleep(0.05)
@@ -113,7 +99,6 @@ if __name__ == '__main__':
                                     "Extracted"
                             )
                             d.writing(reader[1], partition_file, addr)
-                        # check file header for sparse
                         except:
                             print (
                                     partition.ljust(12) + " : " +
@@ -124,19 +109,11 @@ if __name__ == '__main__':
                             )
                     else:
                         print (
-=======
-                    print (
->>>>>>> parent of 6929422... tarfile extraction added.
-=======
-                    print (
->>>>>>> parent of 6929422... tarfile extraction added.
                                 partition.ljust(12) + " : " +
                                 partition_file.ljust(20) + " " +
                                 addr.strip("L").ljust(12) + " " +
                                 size.strip("L").ljust(12)
-                    )
-                    if partition_file != "":
-                        pass # implement tar
+                        )
                 else:
                     print "END"
                     break
