@@ -111,3 +111,16 @@ venv.bak/
 .idea/Pit.iml
 A500FUXXU1CPH4_A500FUXEC1CPH3_A500FUXXU1CPG1_HOME.tar
 A500FUXXU1CPH4_A500FUXEC1CPH3_A500FUXXU1CPG1_HOME.tar.md5
+aboot.mbn
+boot.img
+hyp.mbn
+modem.bin
+NON-HLOS.bin
+recovery.img
+rpm.mbn
+sbl1.mbn
+sec.dat
+system.img.ext4
+tz.mbn
+cache.img.ext4
+hidden.img.ext4
