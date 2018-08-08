@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import wmi
 import time
 
@@ -53,7 +55,7 @@ def detect_disk():
         disks = wmi.WMI().Win32_DiskDrive(MediaType="Removable Media")
         if disks == []:
             time.sleep(2)
-            print "Please connect "
+            print ("Please connect ")
             if count == 10:
                 return False, "a", "b", "c"
             count += 1
@@ -83,13 +85,16 @@ def reading():
 def writing(d, image, addr):
     # windows generic access for writing disks
     flash = open(image, "rb")
-    addr2 = int(addr, 16)
-    whole = flash.read()
+    addr2 = addr.strip("L")
+    addr2 = int(addr2, 16)
+    whole = flash.read() # chunk add
     x = len(whole)
     chunk = x/100
     booster = open(d, "r+b")
     booster.seek(addr2)
+    print("  Flashing...", end="")
     for x in range(100):
         data = flash.read(chunk)
         booster.write(data)
         time.sleep(0.05)
+    print(" Completed")

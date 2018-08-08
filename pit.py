@@ -89,31 +89,33 @@ if __name__ == '__main__':
                 if partition.isalnum():
                     if partition_file != "":
                         try:
-                            time.sleep(0.05)
                             tar.extract(partition_file, cwdir)
+                            time.sleep(0.05)
                             print (
-                                    partition.ljust(12) + " : " +
-                                    partition_file.ljust(20) + " " +
-                                    addr.strip("L").ljust(12) + " " +
-                                    size.strip("L").ljust(12) + " " +
-                                    "Extracted"
+                                partition.ljust(12) + " : " +
+                                partition_file.ljust(20) + " " +
+                                addr.strip("L").ljust(12) + " " +
+                                size.strip("L").ljust(12) + " " +
+                                "Extracted" , end = " "
                             )
                             d.writing(reader[1], partition_file, addr)
-                        except:
+                        except KeyError:
+                            time.sleep(0.05)
                             print (
-                                    partition.ljust(12) + " : " +
-                                    partition_file.ljust(20) + " " +
-                                    addr.strip("L").ljust(12) + " " +
-                                    size.strip("L").ljust(12) + " " +
-                                    "Not Found"
+                                partition.ljust(12) + " : " +
+                                partition_file.ljust(20) + " " +
+                                addr.strip("L").ljust(12) + " " +
+                                size.strip("L").ljust(12) + " " +
+                                "Not Found"
                             )
                     else:
-                        print (
+                        print \
+                                (
                                 partition.ljust(12) + " : " +
                                 partition_file.ljust(20) + " " +
                                 addr.strip("L").ljust(12) + " " +
                                 size.strip("L").ljust(12)
-                        )
+                            )
                 else:
                     print ("END")
                     break
