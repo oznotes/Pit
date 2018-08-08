@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+from __future__ import print_function
+
 import binascii
 import os
 import tarfile
@@ -6,7 +8,6 @@ import sys
 import disk
 import time
 
-# TODO : implement from __future__ import print_function
 
 __author__ = "Oz"
 __copyright__ = "SAMSUNG Pit Parser"
@@ -57,14 +58,14 @@ if __name__ == '__main__':
     cwdir = os.getcwd()
     tar_file = get_file(".md5")
     if not tar_file:
-        print "There is no .tar.md5 file in the directory"
+        print ("There is no .tar.md5 file in the directory")
         sys.exit(0)
     tar = tarfile.open(tar_file)  # TODO : i need to find .
 
     pit = get_file(".pit")
     i = 128
     if not pit:
-        print "There is no '.pit' file in the directory"
+        print ("There is no '.pit' file in the directory")
         sys.exit(0)
     else:
         f = open(pit, "rb")
@@ -72,7 +73,7 @@ if __name__ == '__main__':
         f.close()
         hex_file = bytearray(binascii.hexlify(file_contents))
         if header in hex_file:
-            print "Platform".ljust(12) + " : " + hex_file[32:64].decode("hex").strip("00")
+            print ("Platform".ljust(12) + " : " + hex_file[32:64].decode("hex").strip("00"))
             x = len(hex_file)
             while i < x:
                 partition = hex_file[i:i+32].strip("00")
@@ -115,7 +116,7 @@ if __name__ == '__main__':
                                 size.strip("L").ljust(12)
                         )
                 else:
-                    print "END"
+                    print ("END")
                     break
                 i = i + 264  # 84 bytes each block of pit
         else:
