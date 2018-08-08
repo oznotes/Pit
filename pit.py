@@ -59,8 +59,6 @@ if __name__ == '__main__':
     if not tar_file:
         print ("There is no .tar.md5 file in the directory")
         sys.exit(0)
-    tar = tarfile.open(tar_file)  # TODO : i need to find .
-
     pit = get_file(".pit")
     i = 128
     if not pit:
@@ -89,7 +87,9 @@ if __name__ == '__main__':
                 if partition.isalnum():
                     if partition_file != "":
                         try:
+                            tar = tarfile.open(tar_file)  # TODO : i need to find .
                             tar.extract(partition_file, cwdir)
+                            tar.close()
                             time.sleep(0.05)
                             print (
                                 partition.ljust(12) + " : " +

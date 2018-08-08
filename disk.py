@@ -87,14 +87,16 @@ def writing(d, image, addr):
     flash = open(image, "rb")
     addr2 = addr.strip("L")
     addr2 = int(addr2, 16)
-    whole = flash.read() # chunk add
-    x = len(whole)
-    chunk = x/100
     booster = open(d, "r+b")
     booster.seek(addr2)
     print("  Flashing...", end="")
-    for x in range(100):
-        data = flash.read(chunk)
-        booster.write(data)
-        time.sleep(0.05)
+    for pieces in read_in_chunks(flash):
+        booster.write(pieces)
+        time.sleep(0.01)
     print(" Completed")
+    try:
+        flash.flush()
+    except:
+        pass
+    finally:
+        flash.close()
