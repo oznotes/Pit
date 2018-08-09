@@ -51,8 +51,8 @@ def little_endian(deadbeef):  # ef be ad de
 
 if __name__ == '__main__':
 
-    d = disk
-    reader  = d.detect_disk()
+    # d = disk
+    # reader  = d.detect_disk()
     # if reader[0] == True:
     cwdir = os.getcwd()
     tar_file = get_file(".md5")
@@ -91,34 +91,26 @@ if __name__ == '__main__':
                             tar.extract(partition_file, cwdir)
                             tar.close()
                             time.sleep(0.05)
-                            print (
+                            print(
                                 partition.ljust(12) + " : " +
                                 partition_file.ljust(20) + " " +
                                 addr.strip("L").ljust(12) + " " +
                                 size.strip("L").ljust(12) + " " +
-                                "Extracted" , end = " ")
-                            result = d.writing(reader[1], partition_file, addr)
-                            if result is True:
-                                print(" Completed")
-                            else:
-                                print("Not Done")
+                                "Extracted")
                         except KeyError:
                             time.sleep(0.05)
-                            print (
+                            print(
                                 partition.ljust(12) + " : " +
                                 partition_file.ljust(20) + " " +
                                 addr.strip("L").ljust(12) + " " +
                                 size.strip("L").ljust(12) + " " +
-                                "Not Found"
-                            )
+                                "Not Found")
                     else:
-                        print \
-                                (
-                                partition.ljust(12) + " : " +
-                                partition_file.ljust(20) + " " +
-                                addr.strip("L").ljust(12) + " " +
-                                size.strip("L").ljust(12)
-                            )
+                        print(
+                            partition.ljust(12) + " : " +
+                            partition_file.ljust(20) + " " +
+                            addr.strip("L").ljust(12) + " " +
+                            size.strip("L").ljust(12))
                 else:
                     print ("END")
                     break

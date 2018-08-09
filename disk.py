@@ -1,38 +1,12 @@
 from __future__ import print_function
-
 import wmi
 import time
+from progress.bar import Bar
+import sys
+
+
 __author__ = "Oz"
 __copyright__ = "Disk Reader WMI"
-
-"""
-Useful parameters :
-
-Availability	        ;	Manufacturer	            ;	SectorsPerTrack
-BytesPerSector	        ;	MaxBlockSize	            ;	SerialNumber
-Capabilities	        ;	MaxMediaSize	            ;	Signature
-CapabilityDescriptions	;	MediaLoaded	                ;	Size
-Caption	                ;	MediaType	                ;	Status
-CompressionMethod	    ;	MinBlockSize	            ;	StatusInfo
-ConfigManagerErrorCode	;	Model	                    ;	SystemCreationClassName
-ConfigManagerUserConfig	;	Name	                    ;	SystemName
-CreationClassName	    ;	NeedsCleaning	            ;	TotalCylinders
-DefaultBlockSize	    ;	NumberOfMediaSupported	    ;	TotalHeads
-Description	            ;	Partitions	                ;	TotalSectors
-DeviceID	            ;	PNPDeviceID	                ;	TotalTracks
-ErrorCleared	        ;	PowerManagementCapabilities	;	TracksPerCylinder
-ErrorDescription	    ;	PowerManagementSupported		
-ErrorMethodology	    ;	SCSIBus		
-FirmwareRevision	    ;	SCSILogicalUnit		
-Index	                ;	SCSIPort		
-datetime InstallDate	;	SCSITargetId		
-InterfaceType	        ;			
-LastErrorCode	        ;	
-
-Notes : 
-her 512 byte da , 4 byte checksum
-TODO : reading size 		
-"""
 
 
 def read_in_chunks(fileobj, chunksize=65536):
@@ -72,15 +46,16 @@ def reading():
 
 
 def writing(d, image, addr):
-    flash = open(image, "rb")
+    f = open(image, "rb")
+    booster = open(d, "r+b")
     addr2 = addr.strip("L")
     addr2 = int(addr2, 16)
     print("  Flashing...", end="")
-    with open(d, 'r+b') as booster:
-        booster.seek(addr2)
-        for pieces in read_in_chunks(flash):
-            booster.write(pieces)
-    flash.close()
+    booster.seek(addr2)
+    for piece in read_in_chunks(f):
+        booster.write(piece)
+    print ("Completed")
     return True
+
 
 
