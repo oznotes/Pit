@@ -2,7 +2,6 @@ from __future__ import print_function
 
 import wmi
 import time
-
 __author__ = "Oz"
 __copyright__ = "Disk Reader WMI"
 
@@ -65,16 +64,6 @@ def detect_disk():
                 gig = 1024 * 1024
                 uid = disk.serialnumber
                 sector_size = disk.BytesPerSector
-                """
-
-                print(disk.Model)
-                print\
-                    (
-                            disk.name + " \n"
-                            "Size : " + str(disk_size/gig) + " MB  \n"
-                            "Sector : " + str(int(sector_size)) + " bytes"
-                    )
-                """
             return True, disk.name, disk_size, sector_size
 
 
@@ -83,20 +72,15 @@ def reading():
 
 
 def writing(d, image, addr):
-    # windows generic access for writing disks
     flash = open(image, "rb")
     addr2 = addr.strip("L")
     addr2 = int(addr2, 16)
-    booster = open(d, "r+b")
-    booster.seek(addr2)
     print("  Flashing...", end="")
-    for pieces in read_in_chunks(flash):
-        booster.write(pieces)
-        time.sleep(0.01)
-    print(" Completed")
-    try:
-        flash.flush()
-    except:
-        pass
-    finally:
-        flash.close()
+    with open(d, 'r+b') as booster:
+        booster.seek(addr2)
+        for pieces in read_in_chunks(flash):
+            booster.write(pieces)
+    flash.close()
+    return True
+
+

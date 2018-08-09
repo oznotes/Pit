@@ -96,9 +96,12 @@ if __name__ == '__main__':
                                 partition_file.ljust(20) + " " +
                                 addr.strip("L").ljust(12) + " " +
                                 size.strip("L").ljust(12) + " " +
-                                "Extracted" , end = " "
-                            )
-                            d.writing(reader[1], partition_file, addr)
+                                "Extracted" , end = " ")
+                            result = d.writing(reader[1], partition_file, addr)
+                            if result is True:
+                                print(" Completed")
+                            else:
+                                print("Not Done")
                         except KeyError:
                             time.sleep(0.05)
                             print (
