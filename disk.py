@@ -1,7 +1,6 @@
 from __future__ import print_function
 import wmi
 import time
-from progress.bar import Bar
 import sys
 
 
