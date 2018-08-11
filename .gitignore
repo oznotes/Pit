@@ -126,3 +126,5 @@ cache.img.ext4
 hidden.img.ext4
 convert.py
 unpack.exe
+sub.py
+unpacker.exe
