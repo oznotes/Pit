@@ -4,12 +4,11 @@ import binascii
 import os
 import tarfile
 import sys
-import disk
 import time
 
 
 __author__ = "Oz"
-__copyright__ = "SAMSUNG Pit Parser"
+__copyright__ = "SAMSUNG Pit Parser snd tar extract "
 
 header = "76983412"  # v 4.
 
