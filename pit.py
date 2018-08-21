@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 from __future__ import print_function
+
 import binascii
 import os
-import tarfile
 import sys
+import tarfile
 import time
-
 
 __author__ = "Oz"
 __copyright__ = "SAMSUNG Pit Parser snd tar extract"
@@ -44,7 +44,8 @@ def little_endian(deadbeef):  # ef be ad de
         deadbeef.pop(-1)
         if not deadbeef:
             break
-    temp = str(temp).replace("'", "").replace(",", "").replace("[", "").replace("]", "").replace(" ", "")
+    temp = str(temp).replace("'", "").replace(",", "").replace(
+        "[", "").replace("]", "").replace(" ", "")
     return temp
 
 
@@ -69,7 +70,8 @@ if __name__ == '__main__':
         f.close()
         hex_file = bytearray(binascii.hexlify(file_contents))
         if header in hex_file:
-            print ("Platform".ljust(12) + " : " + hex_file[32:64].decode("hex").strip("00"))
+            print ("Platform".ljust(12) + " : " +
+                   hex_file[32:64].decode("hex").strip("00"))
             x = len(hex_file)
             while i < x:
                 partition = hex_file[i:i+32].strip("00")
@@ -86,7 +88,8 @@ if __name__ == '__main__':
                 if partition.isalnum():
                     if partition_file != "":
                         try:
-                            tar = tarfile.open(tar_file)  # TODO : i need to find .
+                            # TODO : i need to find .
+                            tar = tarfile.open(tar_file)
                             tar.extract(partition_file, cwdir)
                             tar.close()
                             time.sleep(0.05)
