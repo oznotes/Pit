@@ -1,8 +1,9 @@
 from __future__ import print_function
-import wmi
-import time
-import sys
 
+import sys
+import time
+
+import wmi
 
 __author__ = "Oz"
 __copyright__ = "Disk Reader WMI"
@@ -55,6 +56,3 @@ def writing(d, image, addr):
         booster.write(piece)
     print ("Completed")
     return True
-
-
-
