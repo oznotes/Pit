@@ -44,7 +44,7 @@ def little_endian(deadbeef):  # ef be ad de
         deadbeef.pop(-1)
         if not deadbeef:
             break
-    temp = "".join(temp) # join the list 
+    temp = "".join(temp)  # join the list
     return temp
 
 
