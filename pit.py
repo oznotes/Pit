@@ -19,7 +19,7 @@ def get_file(file_type):
     :return: file name
     """
     cwd = os.getcwd()
-    for root, dirs, files in os.walk(cwd, topdown=True):
+    for _root, dirs, files in os.walk(cwd, topdown=True):
         del dirs[:]  # remove the sub directories.
         for pf in files:
             if pf.endswith(file_type):
@@ -38,14 +38,13 @@ def fix_hex(mihex):
 def little_endian(deadbeef):  # ef be ad de
     temp = []
     deadbeef = list(deadbeef)
-    for ix in range(len(deadbeef)):
+    for _ in range(len(deadbeef)):
         temp.append(deadbeef[-2:])
         deadbeef.pop(-1)
         deadbeef.pop(-1)
         if not deadbeef:
             break
-    temp = str(temp).replace("'", "").replace(",", "").replace(
-        "[", "").replace("]", "").replace(" ", "")
+    temp = "".join(temp) # join the list 
     return temp
 
 
@@ -57,12 +56,12 @@ if __name__ == '__main__':
     cwdir = os.getcwd()
     tar_file = get_file(".md5")
     if not tar_file:
-        print ("There is no .tar.md5 file in the directory")
+        print("There is no .tar.md5 file in the directory")
         sys.exit(0)
     pit = get_file(".pit")
     i = 128
     if not pit:
-        print ("There is no '.pit' file in the directory")
+        print("There is no '.pit' file in the directory")
         sys.exit(0)
     else:
         f = open(pit, "rb")
@@ -70,8 +69,8 @@ if __name__ == '__main__':
         f.close()
         hex_file = bytearray(binascii.hexlify(file_contents))
         if header in hex_file:
-            print ("Platform".ljust(12) + " : " +
-                   hex_file[32:64].decode("hex").strip("00"))
+            print("Platform".ljust(12) + " : " +
+                  hex_file[32:64].decode("hex").strip("00"))
             x = len(hex_file)
             while i < x:
                 partition = hex_file[i:i+32].strip("00")
@@ -114,7 +113,7 @@ if __name__ == '__main__':
                             addr.strip("L").ljust(12) + " " +
                             size.strip("L").ljust(12))
                 else:
-                    print ("END")
+                    print("END")
                     break
                 i = i + 264  # 84 bytes each block of pit
         else:
