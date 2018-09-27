@@ -49,10 +49,6 @@ def little_endian(deadbeef):  # ef be ad de
 
 
 if __name__ == '__main__':
-
-    # d = disk
-    # reader  = d.detect_disk()
-    # if reader[0] == True:
     cwdir = os.getcwd()
     tar_file = get_file(".md5")
     if not tar_file:
