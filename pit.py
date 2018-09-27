@@ -8,7 +8,7 @@ import tarfile
 import time
 
 __author__ = "Oz"
-__copyright__ = "SAMSUNG Pit Parser snd tar extract"
+__copyright__ = "SAMSUNG Pit Parser and tar extract"
 
 header = "76983412"  # v 4.
 
