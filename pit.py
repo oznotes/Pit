@@ -48,7 +48,7 @@ def little_endian(deadbeef):  # ef be ad de
         if not deadbeef:
             break
     # convert nested list to single list and join convert to string
-    big_end = ''.join([''.join(map(str, i)) for i in temp]) 
+    big_end = ''.join([''.join(map(str, i)) for i in temp])
     return big_end
 
 
