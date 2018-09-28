@@ -60,14 +60,14 @@ def extractor(hex_in, start, end):
 
     """
     try:
-        hex_file = str((binascii.unhexlify((hex_in[start:end].decode(
+        hex_out = str((binascii.unhexlify((hex_in[start:end].decode(
             "utf-8")).strip("00")))).replace("b'", "").replace("'", "")
     except binascii.Error:
-        hex_file = str((binascii.unhexlify(
+        hex_out = str((binascii.unhexlify(
             (hex_in[start:end].decode("utf-8"))))).replace("b'", "").replace("'", "")
-        hex_file = hex_file.replace("\\x00", "")
-    #hex_file = fix_hex(hex_file)
-    return hex_file
+        hex_out = hex_out.replace("\\x00", "")
+    # hex_out = fix_hex(hex_file)
+    return hex_out
 
 
 def bytearraytostr(by):
