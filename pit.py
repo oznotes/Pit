@@ -47,7 +47,8 @@ def little_endian(deadbeef):  # ef be ad de
         deadbeef.pop(-1)
         if not deadbeef:
             break
-    temp = ''.join([''.join(map(str, i)) for i in temp])
+    # convert nested list to single list and join convert to string
+    temp = ''.join([''.join(map(str, i)) for i in temp]) 
     return temp
 
 
