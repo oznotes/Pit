@@ -128,26 +128,15 @@ if __name__ == '__main__':
                             tar.close()
                             time.sleep(0.05)
                             # if ext4 check  for sparse.
-                            print(
-                                partition.ljust(12) + " : " +
-                                partition_file.ljust(20) + " " +
-                                addr.strip("L").ljust(12) + " " +
-                                size.strip("L").ljust(12) + " " +
-                                "Extracted")
+                            print(partition.ljust(12) + " : " + partition_file.ljust(20) + " " + addr.strip(
+                                "L").ljust(12) + " " + size.strip("L").ljust(12) + " " + "Extracted")
                         except KeyError:
                             time.sleep(0.05)
-                            print(
-                                partition.ljust(12) + " : " +
-                                partition_file.ljust(20) + " " +
-                                addr.strip("L").ljust(12) + " " +
-                                size.strip("L").ljust(12) + " " +
-                                "Not Found")
+                            print(partition.ljust(12) + " : " + partition_file.ljust(20) + " " + addr.strip(
+                                "L").ljust(12) + " " + size.strip("L").ljust(12) + " " + "Not Found")
                     else:
-                        print(
-                            partition.ljust(12) + " : " +
-                            partition_file.ljust(20) + " " +
-                            addr.strip("L").ljust(12) + " " +
-                            size.strip("L").ljust(12))
+                        print(partition.ljust(12) + " : " + partition_file.ljust(20) +
+                              " " + addr.strip("L").ljust(12) + " " + size.strip("L").ljust(12))
                 else:
                     print("END")
                     break
