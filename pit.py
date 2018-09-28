@@ -127,6 +127,7 @@ if __name__ == '__main__':
                                         "\\" + tar_file[0:6] + "\\extract")
                             tar.close()
                             time.sleep(0.05)
+                            # if ext4 check  for sparse.
                             print(
                                 partition.ljust(12) + " : " +
                                 partition_file.ljust(20) + " " +
