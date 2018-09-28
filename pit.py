@@ -102,6 +102,9 @@ if __name__ == '__main__':
             print("Platform".ljust(12) + " :", platform)
             x = len(hex_file)
             while i < x:
+                """
+                Pit File here :
+                """
                 partition = extractor(hex_file, i, i+32)
                 partition_file = extractor(hex_file, i+64, i+96)
                 addr = str(hex_file[i-32:i-24])  # location
@@ -115,6 +118,9 @@ if __name__ == '__main__':
                 if partition.isalnum():
                     if partition_file != "":
                         try:
+                            """
+                            Tar File is here:
+                            """
                             # TODO : i need to find .
                             tar = tarfile.open(tar_file)
                             # check if folder is empty or not ?
