@@ -47,9 +47,7 @@ def little_endian(deadbeef):  # ef be ad de
         deadbeef.pop(-1)
         if not deadbeef:
             break
-    temp = ''.join(map(str, temp))
-    temp = temp.replace("'", "").replace(
-        '[', '').replace(']', '').replace(',', '').replace(' ', '')
+    temp = ''.join([''.join(map(str, i)) for i in temp])
     return temp
 
 
