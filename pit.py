@@ -48,7 +48,8 @@ def little_endian(deadbeef):  # ef be ad de
         if not deadbeef:
             break
     temp = ''.join(map(str, temp))
-    temp = temp.replace("'","").replace('[','').replace(']','').replace(',','').replace(' ','')
+    temp = temp.replace("'", "").replace(
+        '[', '').replace(']', '').replace(',', '').replace(' ', '')
     return temp
 
 
@@ -56,13 +57,15 @@ def extractor(hex_in, start, end):
     """
     given the byterray
     out:string
-    
+
     """
     try:
-        hex_file = str((binascii.unhexlify((hex_in[start:end].decode("utf-8")).strip("00")))).replace("b'", "").replace("'","")
+        hex_file = str((binascii.unhexlify((hex_in[start:end].decode(
+            "utf-8")).strip("00")))).replace("b'", "").replace("'", "")
     except binascii.Error:
-        hex_file = str((binascii.unhexlify((hex_in[start:end].decode("utf-8"))))).replace("b'", "").replace("'","")
-        hex_file = hex_file.replace("\\x00","")
+        hex_file = str((binascii.unhexlify(
+            (hex_in[start:end].decode("utf-8"))))).replace("b'", "").replace("'", "")
+        hex_file = hex_file.replace("\\x00", "")
     #hex_file = fix_hex(hex_file)
     return hex_file
 
@@ -70,13 +73,14 @@ def extractor(hex_in, start, end):
 def bytearraytostr(by):
     """
     """
-    by = by.replace("bytearray","")
+    by = by.replace("bytearray", "")
     by = by.replace("b'", "")
-    by = by.replace("'","")
-    by = by.replace("(","")
-    by = by.replace(")","")
+    by = by.replace("'", "")
+    by = by.replace("(", "")
+    by = by.replace(")", "")
     return by
-    
+
+
 if __name__ == '__main__':
     cwdir = os.getcwd()
     tar_file = get_file(".md5")
@@ -98,14 +102,14 @@ if __name__ == '__main__':
             print("Platform".ljust(12) + " :", platform)
             x = len(hex_file)
             while i < x:
-                partition = extractor(hex_file,i,i+32)
-                partition_file = extractor(hex_file,i+64,i+96)
-                addr = str(hex_file[i-32:i-24]) # location
+                partition = extractor(hex_file, i, i+32)
+                partition_file = extractor(hex_file, i+64, i+96)
+                addr = str(hex_file[i-32:i-24])  # location
                 addr = bytearraytostr(addr)
                 hex_addr = little_endian(str(addr))
                 addr = hex(int(hex_addr, 16) * 512)
                 size = str(hex_file[i-24:i-16])
-                size  = bytearraytostr(size)
+                size = bytearraytostr(size)
                 hex_size = little_endian(str(size))
                 size = hex(int(hex_size, 16) * 512)
                 if partition.isalnum():
@@ -114,7 +118,8 @@ if __name__ == '__main__':
                             # TODO : i need to find .
                             tar = tarfile.open(tar_file)
                             # check if folder is empty or not ?
-                            tar.extract(partition_file, cwdir + "\\" + tar_file[0:6] + "\\extract")
+                            tar.extract(partition_file, cwdir +
+                                        "\\" + tar_file[0:6] + "\\extract")
                             tar.close()
                             time.sleep(0.05)
                             print(
