@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from __future__ import print_function
+# from __future__ import print_function
 
 import binascii
 import os
@@ -11,6 +11,9 @@ __author__ = "Oz"
 __copyright__ = "SAMSUNG Pit Parser and tar extract"
 
 header = "76983412"  # v 4.
+# convert
+b = bytearray()
+b.extend(map(ord, header))
 
 
 def get_file(file_type):
@@ -44,10 +47,36 @@ def little_endian(deadbeef):  # ef be ad de
         deadbeef.pop(-1)
         if not deadbeef:
             break
-    temp = "".join(temp)  # join the list
+    temp = ''.join(map(str, temp))
+    temp = temp.replace("'","").replace('[','').replace(']','').replace(',','').replace(' ','')
     return temp
 
 
+def extractor(hex_in, start, end):
+    """
+    given the byterray
+    out:string
+    
+    """
+    try:
+        hex_file = str((binascii.unhexlify((hex_in[start:end].decode("utf-8")).strip("00")))).replace("b'", "").replace("'","")
+    except binascii.Error:
+        hex_file = str((binascii.unhexlify((hex_in[start:end].decode("utf-8"))))).replace("b'", "").replace("'","")
+        hex_file = hex_file.replace("\\x00","")
+    #hex_file = fix_hex(hex_file)
+    return hex_file
+
+
+def bytearraytostr(by):
+    """
+    """
+    by = by.replace("bytearray","")
+    by = by.replace("b'", "")
+    by = by.replace("'","")
+    by = by.replace("(","")
+    by = by.replace(")","")
+    return by
+    
 if __name__ == '__main__':
     cwdir = os.getcwd()
     tar_file = get_file(".md5")
@@ -64,20 +93,19 @@ if __name__ == '__main__':
         file_contents = f.read()
         f.close()
         hex_file = bytearray(binascii.hexlify(file_contents))
-        if header in hex_file:
-            print("Platform".ljust(12) + " : " +
-                  hex_file[32:64].decode("hex").strip("00"))
+        if b in hex_file:
+            platform = extractor(hex_file, 32, 64)
+            print("Platform".ljust(12) + " :", platform)
             x = len(hex_file)
             while i < x:
-                partition = hex_file[i:i+32].strip("00")
-                #  print partition  # debug purpose
-                partition = partition.replace("00", "")  # get rid of this .
-                partition = fix_hex(partition).decode("hex")
-                partition_file = hex_file[i+64:i+96].strip("00").decode("hex")
-                addr = hex_file[i-32:i-24]
+                partition = extractor(hex_file,i,i+32)
+                partition_file = extractor(hex_file,i+64,i+96)
+                addr = str(hex_file[i-32:i-24]) # location
+                addr = bytearraytostr(addr)
                 hex_addr = little_endian(str(addr))
                 addr = hex(int(hex_addr, 16) * 512)
-                size = hex_file[i-24:i-16]
+                size = str(hex_file[i-24:i-16])
+                size  = bytearraytostr(size)
                 hex_size = little_endian(str(size))
                 size = hex(int(hex_size, 16) * 512)
                 if partition.isalnum():
@@ -85,7 +113,8 @@ if __name__ == '__main__':
                         try:
                             # TODO : i need to find .
                             tar = tarfile.open(tar_file)
-                            tar.extract(partition_file, cwdir)
+                            # check if folder is empty or not ?
+                            tar.extract(partition_file, cwdir + "\\" + tar_file[0:6] + "\\extract")
                             tar.close()
                             time.sleep(0.05)
                             print(
