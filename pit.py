@@ -103,6 +103,12 @@ if __name__ == '__main__':
             while i < x:
                 """
                 Pit File here :
+                
+                02 00 00 00 01 00 00 00 05 00 00 00 01 00 00 00 
+                00 20 00 00 00 78 00 00 00 00 00 00 00 00 00 00 
+                41 50 4E 48 4C 4F 53 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+                4E 4F 4E 2D 48 4C 4F 53 2E 62 69 6E 00 00 00 00
                 """
                 partition = extractor(hex_file, i, i+32)
                 partition_file = extractor(hex_file, i+64, i+96)
