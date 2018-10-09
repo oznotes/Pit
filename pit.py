@@ -140,7 +140,7 @@ if __name__ == '__main__':
                                 "L").ljust(12) + " " + size.strip("L").ljust(12) + " " + "Extracted")
                             # if file is ext4
                             if partition_file[-4:] == "ext4":
-                                path = "A500FU\\extract\\" + partition_file
+                                path = tar_file[0:6] + "\\extract\\" + partition_file
                                 FH = open(path, 'rb') # open file.
                                 header_bin = FH.read(28)
                                 header = struct.unpack("<I4H4I", header_bin)
