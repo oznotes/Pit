@@ -3,9 +3,12 @@
 
 import binascii
 import os
+import struct
 import sys
 import tarfile
 import time
+
+from sparse import sparse
 
 __author__ = "Oz"
 __copyright__ = "SAMSUNG Pit Parser and tar extract"
@@ -111,7 +114,7 @@ if __name__ == '__main__':
                 4E 4F 4E 2D 48 4C 4F 53 2E 62 69 6E 00 00 00 00
                 """
                 partition = extractor(hex_file, i, i+32)
-                partition_file = extractor(hex_file, i+64, i+96)
+                partition_file = extractor(hex_file, i+64, i+98)
                 addr = str(hex_file[i-32:i-24])  # location
                 addr = bytearraytostr(addr)
                 hex_addr = little_endian(str(addr))
@@ -133,9 +136,17 @@ if __name__ == '__main__':
                                         "\\" + tar_file[0:6] + "\\extract")
                             tar.close()
                             time.sleep(0.05)
-                            # if ext4 check  for sparse.
                             print(partition.ljust(12) + " : " + partition_file.ljust(20) + " " + addr.strip(
                                 "L").ljust(12) + " " + size.strip("L").ljust(12) + " " + "Extracted")
+                            # if file is ext4
+                            if partition_file[-4:] == "ext4":
+                                path = "A500FU\\extract\\" + partition_file
+                                FH = open(path, 'rb') # open file.
+                                header_bin = FH.read(28)
+                                header = struct.unpack("<I4H4I", header_bin)
+                                magic = header[0]
+                                if magic == 0xED26FF3A:
+                                    sparse(partition_file)
                         except KeyError:
                             time.sleep(0.05)
                             print(partition.ljust(12) + " : " + partition_file.ljust(20) + " " + addr.strip(
