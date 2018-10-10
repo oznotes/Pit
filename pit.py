@@ -106,7 +106,7 @@ if __name__ == '__main__':
             while i < x:
                 """
                 Pit File here :
-                
+
                 02 00 00 00 01 00 00 00 05 00 00 00 01 00 00 00 
                 00 20 00 00 00 78 00 00 00 00 00 00 00 00 00 00 
                 41 50 4E 48 4C 4F 53 00 00 00 00 00 00 00 00 00 
@@ -140,8 +140,9 @@ if __name__ == '__main__':
                                 "L").ljust(12) + " " + size.strip("L").ljust(12) + " " + "Extracted")
                             # if file is ext4
                             if partition_file[-4:] == "ext4":
-                                path = tar_file[0:6] + "\\extract\\" + partition_file
-                                FH = open(path, 'rb') # open file.
+                                path = tar_file[0:6] + \
+                                    "\\extract\\" + partition_file
+                                FH = open(path, 'rb')  # open file.
                                 header_bin = FH.read(28)
                                 header = struct.unpack("<I4H4I", header_bin)
                                 magic = header[0]
