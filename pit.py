@@ -138,7 +138,9 @@ if __name__ == '__main__':
                             time.sleep(0.05)
                             print(partition.ljust(12) + " : " + partition_file.ljust(20) + " " + addr.strip(
                                 "L").ljust(12) + " " + size.strip("L").ljust(12) + " " + "Extracted")
-                            # if file is ext4
+                            """
+                            # Ext4 extracting here 
+                            """
                             if partition_file[-4:] == "ext4":
                                 path = tar_file[0:6] + \
                                     "\\extract\\" + partition_file
