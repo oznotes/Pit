@@ -142,9 +142,8 @@ if __name__ == '__main__':
                             # Ext4 extracting here 
                             """
                             if partition_file[-4:] == "ext4":
-                                print("Converting".ljust(12) + " :" , end=" ")
-                                path = tar_file[0:6] + \
-                                    "\\extract\\" + partition_file
+                                print("Converting".ljust(12) + " :", end=" ")
+                                path = tar_file[0:6] + "\\extract\\" + partition_file
                                 FH = open(path, 'rb')  # open file.
                                 header_bin = FH.read(28)
                                 header = struct.unpack("<I4H4I", header_bin)
