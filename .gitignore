@@ -131,3 +131,5 @@ sparse_img_to_ext4.py
 take_care.py
 up.dat
 A500FU/extract/system2.img.ext4
+bub.py
+main.py
