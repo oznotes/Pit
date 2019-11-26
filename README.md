@@ -3,4 +3,4 @@
 
 ========================================
 
-![Alt text](docs/pic/pit.py.png?raw=true "Ledger UI")
+![Alt text](docs/pic/pit.py.png?raw=true "Pit File")
